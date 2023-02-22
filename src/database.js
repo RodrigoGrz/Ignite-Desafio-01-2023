@@ -60,4 +60,10 @@ export class Database {
             this.#persist();
         }
     }
+
+    complete(table, id) {
+        const row = this.#database[table].find(task => task.id === id);
+
+        row.completed_at ? row.completed_at = null : row.completed_at = new Date();
+    }
 }
