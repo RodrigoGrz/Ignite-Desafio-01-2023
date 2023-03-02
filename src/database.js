@@ -31,6 +31,16 @@ export class Database {
         return data;
     }
 
+    selectById(table, id) {
+        let data = this.#database[table] ?? [];
+
+        if(id) {
+            data = data.find(row => row.id === id);
+        }
+
+        return data;
+    }
+
     insert(table, data) {
         if(Array.isArray(this.#database[table])) {
             this.#database[table].push(data);

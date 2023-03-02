@@ -24,6 +24,14 @@ export const routes = [
         path: buildRoutePath('/tasks'),
         handler: (req, res) => {
             const { title, description } = req.body;
+
+            if(!title) {
+                return res.writeHead(400).end(JSON.stringify("The title can't empty!"));
+            }
+
+            if(!description) {
+                return res.writeHead(400).end(JSON.stringify("The description can't empty!"));
+            }
         
             const task = {
                 id: randomUUID(),
@@ -45,6 +53,12 @@ export const routes = [
         handler: (req, res) => {
             const { id } = req.params;
 
+            const taskExists = database.selectById('tasks', id);
+
+            if(!taskExists) {
+                return res.writeHead(400).end(JSON.stringify('User does not exists!'));
+            }
+
             database.delete('tasks', id);
 
             return res.writeHead(204).end();
@@ -57,9 +71,24 @@ export const routes = [
             const { id } = req.params;
             const { title, description } = req.body;
 
+            if(!title) {
+                return res.writeHead(400).end(JSON.stringify("The title can't empty!"));
+            }
+
+            if(!description) {
+                return res.writeHead(400).end(JSON.stringify("The description can't empty!"));
+            }
+
+            const taskExists = database.selectById('tasks', id);
+
+            if(!taskExists) {
+                return res.writeHead(400).end(JSON.stringify('User does not exists!'));
+            }
+
             database.update('tasks', id, {
-                title,
-                description,
+                ...taskExists,
+                title: title ? title : taskExists.title,
+                description: description ? description : taskExists.description,
             });
 
             return res.writeHead(204).end();
@@ -70,6 +99,12 @@ export const routes = [
         path: buildRoutePath('/tasks/:id/complete'),
         handler: (req, res) => {
             const { id } = req.params;
+
+            const taskExists = database.selectById('tasks', id);
+
+            if(!taskExists) {
+                return res.writeHead(400).end(JSON.stringify('User does not exists!'));
+            }
 
             database.complete('tasks', id);
 
