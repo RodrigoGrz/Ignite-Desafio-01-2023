@@ -1,0 +1,11 @@
+.input {
+    width: 39.87rem;
+    height: 3.37rem;
+    padding: 1rem;
+    border: 1px solid var(--gray-700);
+    border-radius: 8px;
+    outline: none;
+    background: var(--gray-500);
+    color: var(--gray-200);
+    margin-right: 8px;
+}
