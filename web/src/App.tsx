@@ -12,14 +12,23 @@ import { Task } from "./components/Task";
 interface Task {
   id: string;
   task: string;
+  isCompleted: boolean;
 }
 
-export function App() {
-  const [tasks, setTasks] = useState<Task[] | null>([{
-    id: 'test',
-    task: 'test'
-  }]);
+const tasks = [
+  {
+    id: 'test1',
+    task: 'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
+    isCompleted: false,
+  },
+  {
+    id: 'test2',
+    task: 'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
+    isCompleted: false,
+  },
+]
 
+export function App() {
   return (
     <div>
       <Header />
@@ -45,9 +54,15 @@ export function App() {
             </div>
           </div>
 
-          {tasks ? (
-            <Task />
-          ) : (
+          {tasks ? tasks.map(task => {
+            return (
+              <Task 
+                key={task.id}
+                content={task.task}
+                isCompleted={task.isCompleted}
+              />
+            )
+          }) : (
             <img src={clipboardImg} />
           )}
         </div>

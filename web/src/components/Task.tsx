@@ -1,14 +1,24 @@
 import styles from "./Task.module.css";
-import { Trash } from "phosphor-react";
+import { Trash, Check } from "phosphor-react";
 
-export function Task() {
+interface TaskProps {
+    content: string;
+    isCompleted: boolean;
+}
+
+export function Task({ content, isCompleted }: TaskProps) {
     return (
-        <div className={styles.task}>
-            <input type="checkbox" />
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio alias, esse fuga recusandae tempora repellendus, corporis ullam veritatis, culpa voluptatibus ipsum? Inventore, vitae numquam. Iure perferendis quisquam tempora rerum molestiae.</p>
+        <div className={isCompleted ? styles.taskChecked : styles.task}>
+            <div className={styles.checkbox}>
+                <input type="checkbox" />
+                <label className={styles.checked}><Check size={12} weight="bold" color="#fff" /></label>
+            </div>
+            <p className={isCompleted ? styles.taskContentChecked : styles.taskContent}>
+                {content}
+            </p>
             <div>
                 <button title="Deletar tarefa">
-                    <Trash size={24} />
+                    <Trash size={20} />
                 </button>
             </div>
         </div>
