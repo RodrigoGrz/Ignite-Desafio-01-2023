@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { v4 as uuid } from "uuid";
 import "./global.css";
 import styles from "./App.module.css";
 import { PlusCircle } from "phosphor-react";
@@ -15,31 +16,42 @@ interface Task {
   isCompleted: boolean;
 }
 
-const tasks = [
-  {
-    id: 'test1',
-    task: 'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
-    isCompleted: false,
-  },
-  {
-    id: 'test2',
-    task: 'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
-    isCompleted: false,
-  },
-]
-
 export function App() {
+  const [newTask, setNewTask] = useState('');
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  function handleCreateNewTask(event: FormEvent) {
+    event.preventDefault();
+
+    if(!newTask.trim()) {
+      alert('O campo não pode ser vazio!');
+      return;
+    }
+
+    const task = {
+      id: uuid(),
+      task: newTask,
+      isCompleted: false,
+    }
+
+    setTasks([...tasks, task]);
+    setNewTask('');
+  }
+
   return (
     <div>
       <Header />
 
-      <div className={styles.newTask}>
-        <Input />
-        <Button 
-          title="Criar"
-          icon={<PlusCircle size={16} weight="bold" color="#fff" />}
-        />
-      </div>
+     
+        <form onSubmit={handleCreateNewTask} className={styles.newTask}>
+          <Input value={newTask} onChange={(event) => setNewTask(event.target.value)} />
+          <Button
+            type="submit"
+            title="Criar"
+            icon={<PlusCircle size={16} weight="bold" color="#fff" />}
+          />
+        </form>
+     
 
       <div className={styles.tasksContainer}>
         <div className={styles.tasksContent}>

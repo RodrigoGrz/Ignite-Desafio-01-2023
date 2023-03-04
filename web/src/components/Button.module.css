@@ -17,4 +17,5 @@
 
 .button:hover {
     background: var(--blue);
+    color: #fff;
 }
