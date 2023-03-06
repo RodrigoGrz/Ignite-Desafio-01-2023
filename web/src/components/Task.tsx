@@ -5,16 +5,21 @@ import { Task as TaskSchema } from "../App";
 interface TaskProps {
     task: TaskSchema;
     onDeleteTask: (id: string) => void;
+    onToggleComplete: (id: string) => void;
 }
 
-export function Task({ task, onDeleteTask }: TaskProps) {
+export function Task({ task, onDeleteTask, onToggleComplete }: TaskProps) {
     function handleDeleteTask() {
         onDeleteTask(task.id);
     }
 
+    function handleToggleTask() {
+        onToggleComplete(task.id);
+    }
+
     return (
         <div className={task.isCompleted ? styles.taskChecked : styles.task}>
-            <div className={styles.checkbox}>
+            <div onClick={handleToggleTask} className={styles.checkbox}>
                 <input type="checkbox" />
                 <label className={styles.checked}><Check size={12} weight="bold" color="#fff" /></label>
             </div>

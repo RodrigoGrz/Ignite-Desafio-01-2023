@@ -19,6 +19,30 @@ export interface Task {
 export function App() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasksDone, setTasksDone] = useState(0);
+
+  function toggleComplete(id: string) {
+    const taskToggleComplete = tasks.find(task => task.id === id);
+    const allTasksWithoutModified = tasks.filter(task => task.id !== id);
+    
+    if(!taskToggleComplete) {
+      return;
+    }
+
+    taskToggleComplete.isCompleted = taskToggleComplete.isCompleted === true ? false : true;
+
+    setTasks([...allTasksWithoutModified, taskToggleComplete]);
+
+    const amountTasksCompleted = tasks.reduce((acc, valueTask) => {
+      if(valueTask.isCompleted === true) {
+        return Number(acc = acc + 1);
+      }
+
+      return acc;
+    }, 0);
+
+    setTasksDone(amountTasksCompleted);
+  }
 
   function deleteTask(id: string) {
     const taskWithoutDeleted = tasks.filter(task => task.id !== id);
@@ -66,7 +90,7 @@ export function App() {
             </div>
             <div className={styles.tasksDones}>
               <span>Concluídas</span>
-              <span>0</span>
+              <span>{tasks.length > 0 ? `${tasksDone} de ${tasks.length}` : '0'}</span>
             </div>
           </div>
 
@@ -76,6 +100,7 @@ export function App() {
                 key={task.id}
                 task={task}
                 onDeleteTask={deleteTask}
+                onToggleComplete={toggleComplete}
               />
             )
           }) : (
