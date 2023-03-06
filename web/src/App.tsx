@@ -10,15 +10,21 @@ import { Input } from "./components/Input";
 import { Button } from "./components/Button";
 import { Task } from "./components/Task";
 
-interface Task {
+export interface Task {
   id: string;
-  task: string;
+  content: string;
   isCompleted: boolean;
 }
 
 export function App() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  function deleteTask(id: string) {
+    const taskWithoutDeleted = tasks.filter(task => task.id !== id);
+
+    setTasks(taskWithoutDeleted);
+  }
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
@@ -30,7 +36,7 @@ export function App() {
 
     const task = {
       id: uuid(),
-      task: newTask,
+      content: newTask,
       isCompleted: false,
     }
 
@@ -41,8 +47,6 @@ export function App() {
   return (
     <div>
       <Header />
-
-     
         <form onSubmit={handleCreateNewTask} className={styles.newTask}>
           <Input value={newTask} onChange={(event) => setNewTask(event.target.value)} />
           <Button
@@ -70,8 +74,8 @@ export function App() {
             return (
               <Task 
                 key={task.id}
-                content={task.task}
-                isCompleted={task.isCompleted}
+                task={task}
+                onDeleteTask={deleteTask}
               />
             )
           }) : (
