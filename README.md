@@ -7,4 +7,4 @@ Cada pasta há um README explicando o que cada desafio exige.
 
 # 🚧 Em construção
 
-Por enquanto há somente o desafio do back-end que está na pasta server. Em breve os outros desafios serão colocados e depois feito a integração.
+Por enquanto há somente o desafio do back-end que está na pasta server, e o desafio do front-end na pasta web. Em breve o desafio do mobile será colocado.
