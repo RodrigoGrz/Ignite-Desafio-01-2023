@@ -1,4 +1,4 @@
-# Desafio 01 Ignite ReactJS 2023
+# Desafio 01 Ignite React Native 2023
 
 ## Sobre o desafio
 
@@ -17,6 +17,6 @@ Apesar de serem poucas funcionalidades, você vai precisar relembrar conceitos c
 
 ## Layout
 
-<a href="https://www.figma.com/file/w2WqPLPT1cBLTUvgX0kyyf/ToDo-List-(Copy)?node-id=0-1&t=CaozfaWE4B5CgVuF-0" target="__blank">
+<a href="https://www.figma.com/file/1kOi4pvAhsei1NW03xsGmq/ToDo-List-(Copy)?node-id=0-1&t=aEBk9s8bBajJDCyQ-0" target="__blank">
     Abrir layout no figma
 </a>
